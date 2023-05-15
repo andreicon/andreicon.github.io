@@ -3,7 +3,7 @@ layout: post
 title: Arduino Based CNC Winder
 subtitle: A CNC Winder for making coils
 cover-img: /assets/img/cnc-winder.png
-thumbnail-img: /assets/img/thumb.png
+thumbnail-img: /assets/img/cnc-winder.png
 share-img: /assets/img/cnc-winder.png
 tags: [arduino, cnc, winder, coil, diy]
 ---
