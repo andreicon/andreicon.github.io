@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@andreicon | Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-dim: #8b949e;
+            --accent: #58a6ff; /* GitHub Blue */
+            --accent-glow: rgba(88, 166, 255, 0.2);
+            --success: #238636;
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background Grid Effect */
+        .grid-bg {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(88, 166, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            background: #333;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background-image: url('https://api.dicebear.com/7.x/avataaars/svg?seed=Andreicon&backgroundColor=b6e3f4');
+            background-size: cover;
+        }
+
+        .identity h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .identity span {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Bio Section */
+        .bio-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .bio-list li {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Terminal/Console Section */
+        .console {
+            background: #000;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+            min-height: 100px;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .console::before {
+            content: "TERMINAL >";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--bg-color);
+            padding: 0 5px;
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: var(--accent);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        /* Tech Ticker */
+        .tech-ticker {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        /* Action Button */
+        .btn-connect {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 12px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-connect:hover {
+            background: #2ea043;
+            box-shadow: 0 0 15px rgba(35, 134, 54, 0.4);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="header">
+            <div class="avatar"></div>
+            <div class="identity">
+                <h1>@andreicon</h1>
+                <span>Full Stack Developer</span>
+            </div>
+        </div>
+
+        <!-- Bio (From GitHub) -->
+        <ul class="bio-list">
+            <li>🕸️ Building stuff for the web</li>
+            <li>🕹️ Into games, sim racing, and creative tech</li>
+            <li>📚 Always learning, always tinkering</li>
+            <li>💬 Let's connect!</li>
+        </ul>
+
+        <!-- Interactive Tech Ticker -->
+        <div class="tech-ticker">
+            <div class="badge">WebGL</div>
+            <div class="badge">Sim Racing</div>
+            <div class="badge">Creative Tech</div>
+            <div class="badge" id="random-tech">Tinkering...</div>
+        </div>
+
+        <!-- Terminal Output -->
+        <div class="console">
+            <span id="typewriter-text"></span><span class="cursor"></span>
+        </div>
+
+        <button class="btn-connect" onclick="connect()">Initialize Connection</button>
+    </div>
+
+    <script>
+        // 1. Typewriter Effect
+        const textToType = "awaiting input...";
+        const typeWriterElement = document.getElementById('typewriter-text');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100 + Math.random() * 100); // Random typing speed
+            } else {
+                // Loop back to start after a pause
+                setTimeout(() => {
+                    typeWriterElement.innerHTML = "";
+                    i = 0;
+                    typeWriter();
+                }, 3000);
+            }
+        }
+
+        // 2. Random Tech Generator
+        const techs = ["Unity", "Rust", "Three.js", "Unreal", "Blender", "Physics", "Telemetry"];
+        const randomTechElement = document.getElementById('random-tech');
+
+        setInterval(() => {
+            const randomItem = techs[Math.floor(Math.random() * techs.length)];
+            randomTechElement.textContent = randomItem;
+            randomTechElement.style.borderColor = "rgba(88, 166, 255, 0.6)";
+            setTimeout(() => {
+                randomTechElement.style.borderColor = "rgba(88, 166, 255, 0.2)";
+            }, 300);
+        }, 2000);
+
+        // 3. Interaction
+        function connect() {
+            const btn = document.querySelector('.btn-connect');
+            btn.textContent = "Connection Established!";
+            btn.style.backgroundColor = "#58a6ff";
+            btn.style.boxShadow = "0 0 15px rgba(88, 166, 255, 0.4)";
+            
+            const terminal = document.getElementById('typewriter-text');
+            terminal.innerHTML = "";
+            terminal.textContent = "System ready for collaboration.";
+        }
+
+        // Start the app
+        typeWriter();
+
+    </script>
+</body>
+</html>
