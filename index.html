@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@andreicon</title>
+    <title>Andrei Costea — Full-Stack Developer</title>
     <style>
         :root {
             --bg-color: #0d1117;
             --card-bg: #161b22;
             --text-main: #c9d1d9;
             --text-dim: #8b949e;
-            --accent: #58a6ff; /* GitHub Blue */
+            --accent: #58a6ff;
             --accent-glow: rgba(88, 166, 255, 0.2);
             --success: #238636;
+            --success-glow: rgba(35, 134, 54, 0.3);
             --font-mono: 'Courier New', Courier, monospace;
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         }
@@ -23,21 +24,20 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
         }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
         /* Background Grid Effect */
         .grid-bg {
-            position: absolute;
+            position: fixed;
             width: 200%;
             height: 200%;
-            background-image: 
-                linear-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(88, 166, 255, 0.05) 1px, transparent 1px);
+            background-image:
+                linear-gradient(rgba(88, 166, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(88, 166, 255, 0.04) 1px, transparent 1px);
             background-size: 40px 40px;
             transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
             animation: gridMove 20s linear infinite;
@@ -49,79 +49,287 @@
             100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
         }
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background: var(--card-bg);
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            position: relative;
-            transition: transform 0.3s ease;
+        .page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            min-height: 100vh;
         }
 
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 40px var(--accent-glow);
-        }
-
-        /* Header */
-        .header {
+        /* === AVAILABLE BANNER === */
+        .availability-banner {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(35, 134, 54, 0.1);
+            border: 1px solid rgba(35, 134, 54, 0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #3fb950;
+            margin-bottom: 2rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .avatar {
-            width: 64px;
-            height: 64px;
-            background: #333;
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            background: #3fb950;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(63, 185, 80, 0); }
+        }
+
+        /* === HERO / PROFILE HEADER === */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero .avatar {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 2px solid var(--accent);
             background-image: url('https://avatars.githubusercontent.com/u/3862031');
             background-size: cover;
+            margin: 0 auto 1rem;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .identity h1 {
-            font-size: 1.5rem;
+        .hero h1 {
+            font-size: 1.8rem;
             font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero h1 a { color: #fff; }
+        .hero h1 a:hover { color: var(--accent); text-decoration: none; }
+
+        .hero .subtitle {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero .value-prop {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* === SECTION TITLES === */
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #21262d;
+        }
+
+        /* === SERVICES === */
+        .services {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(88, 166, 255, 0.4);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .service-card .icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .service-card p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* === PROJECTS === */
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: rgba(88, 166, 255, 0.4);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .project-card .project-info h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-card .project-info h3 a { color: #fff; }
+        .project-card .project-info h3 a:hover { color: var(--accent); }
+
+        .project-card .project-info p {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        .project-link {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            margin-left: 1rem;
+            margin-top: 0.2rem;
+        }
+
+        /* === EXPERIENCE === */
+        .experience {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-header h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
             color: #fff;
         }
 
-        .identity span {
+        .exp-header .exp-date {
+            font-size: 0.75rem;
             color: var(--text-dim);
-            font-size: 0.9rem;
         }
 
-        /* Bio Section */
-        .bio-list {
-            list-style: none;
-            margin-bottom: 2rem;
+        .exp-company {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
         }
 
-        .bio-list li {
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
+        .exp-description {
+            font-size: 0.8rem;
+            color: var(--text-dim);
             line-height: 1.5;
         }
 
-        /* Terminal/Console Section */
+        /* === TECH STACK === */
+        .tech-stack {
+            margin-bottom: 2.5rem;
+        }
+
+        .tech-grid {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(88, 166, 255, 0.15);
+            transition: border-color 0.2s;
+        }
+
+        .tech-badge:hover {
+            border-color: rgba(88, 166, 255, 0.5);
+            color: var(--accent);
+        }
+
+        /* === TERMINAL === */
+        .terminal-section {
+            margin-bottom: 2.5rem;
+        }
+
         .console {
             background: #000;
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 1rem;
             font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--text-main);
-            min-height: 100px;
+            min-height: 80px;
             position: relative;
             border: 1px solid #333;
         }
 
         .console::before {
-            content: "TERMINAL >";
+            content: "terminal >";
             position: absolute;
             top: -10px;
             left: 10px;
@@ -129,6 +337,7 @@
             padding: 0 5px;
             color: var(--accent);
             font-size: 0.7rem;
+            text-transform: uppercase;
         }
 
         .cursor {
@@ -140,42 +349,89 @@
             vertical-align: middle;
         }
 
-        /* Tech Ticker */
-        .tech-ticker {
-            margin-top: 1rem;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+        /* === CONTACT / CTA === */
+        .contact-section {
             margin-bottom: 2rem;
         }
 
-        .badge {
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid rgba(88, 166, 255, 0.2);
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* Action Button */
-        .btn-connect {
-            width: 100%;
-            margin-top: 1.5rem;
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             padding: 12px;
             background: var(--success);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
+            text-decoration: none;
         }
 
-        .btn-connect:hover {
+        .btn-primary:hover {
             background: #2ea043;
-            box-shadow: 0 0 15px rgba(35, 134, 54, 0.4);
+            box-shadow: 0 0 15px var(--success-glow);
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 12px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            border-top: 1px solid #21262d;
         }
 
         @keyframes blink {
@@ -183,95 +439,221 @@
             50% { opacity: 0; }
         }
 
+        /* === RESPONSIVE === */
+        @media (max-width: 480px) {
+            .page { padding: 0.75rem; }
+            .services { grid-template-columns: 1fr; }
+            .cta-buttons { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
     <div class="grid-bg"></div>
 
-    <div class="container">
-        <!-- Profile Header -->
-        <div class="header">
+    <div class="page">
+
+        <!-- Availability Banner -->
+        <div class="availability-banner">
+            <span class="availability-dot"></span>
+            Open to contracts
+        </div>
+
+        <!-- Hero -->
+        <section class="hero">
             <div class="avatar"></div>
-            <div class="identity">
-                <h1><a href="https://github.com/andreicon" target="_blank" rel="noopener noreferrer">@andreicon</a></h1>
-                <span>Full Stack Developer</span>
+            <h1><a href="https://github.com/andreicon" target="_blank" rel="noopener noreferrer">Andrei Costea</a></h1>
+            <p class="subtitle">Full-Stack Developer | AI, Web Systems & Scalable Backends</p>
+            <p class="value-prop">Full-stack developer helping startups and teams ship production-ready web apps, AI integrations, and scalable backends. Self-taught, 14+ years building for international clients.</p>
+        </section>
+
+        <!-- Services -->
+        <p class="section-title">Services</p>
+        <div class="services">
+            <div class="service-card">
+                <div class="icon">&#x1f310;</div>
+                <h3>Web Applications</h3>
+                <p>Full-stack apps with Node.js, Vue/React, Python.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#x1f916;</div>
+                <h3>AI & LLM Integration</h3>
+                <p>Custom AI pipelines, OpenAI, Llama, RAG systems.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#x2601;&#xfe0f;</div>
+                <h3>Cloud & DevOps</h3>
+                <p>AWS, GCP, Azure. Docker, CI/CD, monitoring.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#x1f680;</div>
+                <h3>MVPs & Prototypes</h3>
+                <p>Fast prototyping to validate ideas and ship quickly.</p>
             </div>
         </div>
 
-        <!-- Bio (From GitHub) -->
-        <ul class="bio-list">
-            <li>🕸️ Building stuff for the web</li>
-            <li>🕹️ Into games, sim racing, and creative tech</li>
-            <li>📚 Always learning, always tinkering</li>
-            <li>💬 Let's connect!</li>
-        </ul>
-
-        <!-- Interactive Tech Ticker -->
-        <div class="tech-ticker">
-            <div class="badge">WebGL</div>
-            <div class="badge">Sim Racing</div>
-            <div class="badge">Creative Tech</div>
-            <div class="badge" id="random-tech">Tinkering...</div>
+        <!-- Projects -->
+        <p class="section-title">Projects</p>
+        <div class="projects">
+            <div class="project-card">
+                <div class="project-info">
+                    <h3><a href="https://go.simrace.ro" target="_blank" rel="noopener noreferrer">GO SimRace Ro</a></h3>
+                    <p>Social platform for the largest Romanian sim racing championship. Registration, leaderboards, team/club profiles.</p>
+                    <div class="project-tags">
+                        <span class="tag">Full-Stack</span>
+                        <span class="tag">Community</span>
+                        <span class="tag">Live</span>
+                    </div>
+                </div>
+                <a class="project-link" href="https://go.simrace.ro" target="_blank" rel="noopener noreferrer">Live &rarr;</a>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <h3><a href="https://github.com/andreicon/llm-finetuning" target="_blank" rel="noopener noreferrer">LLM Fine-tuning</a></h3>
+                    <p>Tools and scripts for fine-tuning large language models.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">AI/ML</span>
+                    </div>
+                </div>
+                <a class="project-link" href="https://github.com/andreicon/llm-finetuning" target="_blank" rel="noopener noreferrer">GitHub &rarr;</a>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <h3><a href="https://github.com/andreicon/rpi-touch-kiosk" target="_blank" rel="noopener noreferrer">RPi Touch Kiosk</a></h3>
+                    <p>Touch-screen kiosk application for Raspberry Pi.</p>
+                    <div class="project-tags">
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">IoT</span>
+                    </div>
+                </div>
+                <a class="project-link" href="https://github.com/andreicon/rpi-touch-kiosk" target="_blank" rel="noopener noreferrer">GitHub &rarr;</a>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <h3><a href="https://github.com/andreicon/mediamojo" target="_blank" rel="noopener noreferrer">MediaMojo</a></h3>
+                    <p>Media downloader using Sonarr, Radarr, Jackett & Transmission with VPN support.</p>
+                    <div class="project-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Self-hosted</span>
+                    </div>
+                </div>
+                <a class="project-link" href="https://github.com/andreicon/mediamojo" target="_blank" rel="noopener noreferrer">GitHub &rarr;</a>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <h3><a href="https://github.com/andreicon/rlr-elo" target="_blank" rel="noopener noreferrer">RLR ELO</a></h3>
+                    <p>ELO ranking system for sim racing championships.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Esports</span>
+                    </div>
+                </div>
+                <a class="project-link" href="https://github.com/andreicon/rlr-elo" target="_blank" rel="noopener noreferrer">GitHub &rarr;</a>
+            </div>
         </div>
 
-        <!-- Terminal Output -->
-        <div class="console">
-            <span id="typewriter-text"></span><span class="cursor"></span>
+        <!-- Experience -->
+        <p class="section-title">Experience</p>
+        <div class="experience">
+            <div class="exp-header">
+                <h3>Full-stack Developer</h3>
+                <span class="exp-date">2017 &mdash; Present</span>
+            </div>
+            <div class="exp-company">Mindful Lab</div>
+            <p class="exp-description">Delivering custom software to international clients across social media, publishing, tech, and manufacturing. Specializing in modern web development with AI capabilities.</p>
         </div>
 
-        <button class="btn-connect" onclick="connect()">Initialize Connection</button>
+        <!-- Tech Stack -->
+        <p class="section-title">Tech Stack</p>
+        <div class="tech-stack">
+            <div class="tech-grid">
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Vue.js</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">AWS</span>
+                <span class="tech-badge">GCP</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">LLMs</span>
+                <span class="tech-badge">CI/CD</span>
+            </div>
+        </div>
+
+        <!-- Terminal -->
+        <div class="terminal-section">
+            <div class="console">
+                <span id="typewriter-text"></span><span class="cursor"></span>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <section class="contact-section">
+            <p class="section-title">Get in Touch</p>
+            <div class="cta-buttons">
+                <a class="btn-primary" href="https://calendly.com/andrei-costea/one-on-one" target="_blank" rel="noopener noreferrer">&#x1f4c5; Book a Call</a>
+                <a class="btn-primary" href="mailto:andrei@mindfullab.co">&#x2709;&#xfe0f; Send an Email</a>
+            </div>
+            <div class="cta-buttons">
+                <a class="btn-secondary" href="https://linkedin.com/in/andreicosteawd" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a class="btn-secondary" href="https://github.com/andreicon" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </section>
+
+        <footer>
+            Built with curiosity. Bucharest, Romania.
+        </footer>
+
     </div>
 
     <script>
-        // 1. Typewriter Effect
-        const textToType = "awaiting input...";
+        const phrases = [
+            "awaiting input...",
+            "open to new projects...",
+            "shipping production systems since 2017...",
+            "console.log('hello, world');",
+            "scp deploy.sh prod:/",
+            "git push origin main",
+            "docker compose up -d",
+            "curl -X POST /api/health",
+            "yarn build && yarn deploy"
+        ];
+
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
         const typeWriterElement = document.getElementById('typewriter-text');
-        let i = 0;
 
         function typeWriter() {
-            if (i < textToType.length) {
-                typeWriterElement.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100 + Math.random() * 100); // Random typing speed
+            const currentPhrase = phrases[phraseIndex];
+
+            if (!isDeleting) {
+                typeWriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+
+                if (charIndex === currentPhrase.length) {
+                    setTimeout(() => { isDeleting = true; typeWriter(); }, 2000);
+                    return;
+                }
             } else {
-                // Loop back to start after a pause
-                setTimeout(() => {
-                    typeWriterElement.innerHTML = "";
-                    i = 0;
-                    typeWriter();
-                }, 3000);
+                typeWriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                }
             }
+
+            const speed = isDeleting ? 30 : 60 + Math.random() * 40;
+            setTimeout(typeWriter, speed);
         }
 
-        // 2. Random Tech Generator
-        const techs = ["Unity", "Rust", "Three.js", "Unreal", "Blender", "Physics", "Telemetry"];
-        const randomTechElement = document.getElementById('random-tech');
-
-        setInterval(() => {
-            const randomItem = techs[Math.floor(Math.random() * techs.length)];
-            randomTechElement.textContent = randomItem;
-            randomTechElement.style.borderColor = "rgba(88, 166, 255, 0.6)";
-            setTimeout(() => {
-                randomTechElement.style.borderColor = "rgba(88, 166, 255, 0.2)";
-            }, 300);
-        }, 2000);
-
-        // 3. Interaction
-        function connect() {
-            const btn = document.querySelector('.btn-connect');
-            btn.textContent = "Connection Established!";
-            btn.style.backgroundColor = "#58a6ff";
-            btn.style.boxShadow = "0 0 15px rgba(88, 166, 255, 0.4)";
-            
-            const terminal = document.getElementById('typewriter-text');
-            terminal.innerHTML = "";
-            terminal.textContent = "System ready for collaboration.";
-        }
-
-        // Start the app
         typeWriter();
-
     </script>
 </body>
 </html>
